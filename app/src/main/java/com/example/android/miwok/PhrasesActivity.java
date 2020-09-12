@@ -13,6 +13,13 @@ public class PhrasesActivity extends AppCompatActivity {
 
     private MediaPlayer mediaPlayer;
 
+    private MediaPlayer.OnCompletionListener mediaCompletionListener = new MediaPlayer.OnCompletionListener() {
+        @Override
+        public void onCompletion(MediaPlayer mediaPlayer) {
+            Helper.releaseMediaPlayer(mediaPlayer);
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,8 +44,12 @@ public class PhrasesActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Word word = words.get(i);
+
+                Helper.releaseMediaPlayer(mediaPlayer);
+
                 mediaPlayer = MediaPlayer.create(PhrasesActivity.this, word.getAudioResourceId());
                 mediaPlayer.start();
+                mediaPlayer.setOnCompletionListener(mediaCompletionListener);
             }
         });
     }

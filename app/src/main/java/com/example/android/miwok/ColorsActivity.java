@@ -1,8 +1,8 @@
 package com.example.android.miwok;
 
 import android.media.MediaPlayer;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -12,6 +12,13 @@ import java.util.ArrayList;
 public class ColorsActivity extends AppCompatActivity {
 
     private MediaPlayer mediaPlayer;
+
+    private MediaPlayer.OnCompletionListener mediaCompletionListener = new MediaPlayer.OnCompletionListener() {
+        @Override
+        public void onCompletion(MediaPlayer mediaPlayer) {
+            Helper.releaseMediaPlayer(mediaPlayer);
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,8 +42,12 @@ public class ColorsActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Word word = words.get(i);
+
+                Helper.releaseMediaPlayer(mediaPlayer);
+
                 mediaPlayer = MediaPlayer.create(ColorsActivity.this, word.getAudioResourceId());
                 mediaPlayer.start();
+                mediaPlayer.setOnCompletionListener(mediaCompletionListener);
             }
         });
     }
