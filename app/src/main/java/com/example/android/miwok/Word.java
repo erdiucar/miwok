@@ -1,23 +1,23 @@
 package com.example.android.miwok;
 
-import android.graphics.Color;
-
 public class Word {
     private static final int N0_IMAGE_PROVIDED = -1;
     private String defaultTranslation;
     private String miwokTranslation;
     private int imageResourceId = N0_IMAGE_PROVIDED;
-    private Color color;
+    private int audioResourceId;
 
-    public Word(String defaultTranslation, String miwokTranslation) {
+    public Word(String defaultTranslation, String miwokTranslation, int audioResourceId) {
         this.defaultTranslation = defaultTranslation;
         this.miwokTranslation = miwokTranslation;
+        this.audioResourceId = audioResourceId;
     }
 
-    public Word(String defaultTranslation, String miwokTranslation, int imageResourceId) {
+    public Word(String defaultTranslation, String miwokTranslation, int imageResourceId, int audioResourceId) {
         this.defaultTranslation = defaultTranslation;
         this.miwokTranslation = miwokTranslation;
         this.imageResourceId = imageResourceId;
+        this.audioResourceId = audioResourceId;
     }
 
     public String getDefaultTranslation() {
@@ -30,6 +30,10 @@ public class Word {
 
     public int getImageResourceId() {
         return imageResourceId;
+    }
+
+    public int getAudioResourceId() {
+        return audioResourceId;
     }
 
     public boolean hasImage() {
