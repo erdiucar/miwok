@@ -53,4 +53,11 @@ public class FamilyActivity extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        Helper.releaseMediaPlayer(mediaPlayer);
+    }
 }
